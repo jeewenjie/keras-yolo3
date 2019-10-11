@@ -1,3 +1,4 @@
+
 import numpy as np
 
 
@@ -5,7 +6,7 @@ class YOLO_Kmeans:
 
     def __init__(self, cluster_number, filename):
         self.cluster_number = cluster_number
-        self.filename = "2012_train.txt"
+        self.filename = "annotation.txt" # Update to your feeding list file for training
 
     def iou(self, boxes, clusters):  # 1 box -> k clusters
         n = boxes.shape[0]
@@ -58,7 +59,7 @@ class YOLO_Kmeans:
         return clusters
 
     def result2txt(self, data):
-        f = open("yolo_anchors.txt", 'w')
+        f = open("anchors.txt", 'w')
         row = np.shape(data)[0]
         for i in range(row):
             if i == 0:
@@ -72,13 +73,12 @@ class YOLO_Kmeans:
         f = open(self.filename, 'r')
         dataSet = []
         for line in f:
+            line = line.rstrip()
             infos = line.split(" ")
             length = len(infos)
             for i in range(1, length):
-                width = int(infos[i].split(",")[2]) - \
-                    int(infos[i].split(",")[0])
-                height = int(infos[i].split(",")[3]) - \
-                    int(infos[i].split(",")[1])
+                width = int(infos[i].split(",")[2])
+                height = int(infos[i].split(",")[3])
                 dataSet.append([width, height])
         result = np.array(dataSet)
         f.close()
@@ -96,6 +96,6 @@ class YOLO_Kmeans:
 
 if __name__ == "__main__":
     cluster_number = 9
-    filename = "2012_train.txt"
+    filename = "annotation.txt"
     kmeans = YOLO_Kmeans(cluster_number, filename)
     kmeans.txt2clusters()
