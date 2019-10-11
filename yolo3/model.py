@@ -10,8 +10,7 @@ from keras.layers.advanced_activations import LeakyReLU
 from keras.layers.normalization import BatchNormalization
 from keras.models import Model
 from keras.regularizers import l2
-from .load_backend import control_flow_ops
-from .load_backend import set_image_dim_ordering
+
 
 from yolo3.utils import compose
 
