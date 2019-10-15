@@ -56,7 +56,7 @@ def get_random_data(annotation_line, input_shape, random=True, max_boxes=20, jit
             image_data = np.array(new_image)/255.
 
         # correct boxes
-        box_data = np.zeros((max_boxes,5))
+        box_data = np.zeros((max_boxes,10))
         if len(box)>0:
             np.random.shuffle(box)
             if len(box)>max_boxes: box = box[:max_boxes]
